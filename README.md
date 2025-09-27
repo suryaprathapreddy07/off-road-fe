@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Off-Road Adventures - Full Stack Application
 
-## Getting Started
+## Project Overview
 
-First, run the development server:
+This is a complete full-stack web application for an off-road adventure company. It includes user and admin functionality, event management, registration system, image gallery, and contact forms with WhatsApp integration.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+### User Features
+
+- User authentication (signup/signin)
+- Browse and view events
+- Register for events with detailed form
+- View image gallery
+- Contact form submission
+
+### Admin Features
+
+- Admin dashboard
+- Event management (CRUD operations)
+- User registration management
+- Image gallery management
+- Contact form management
+- WhatsApp notifications for registrations and contacts
+
+## Technology Stack
+
+### Backend
+
+- Node.js with Express.js
+- MongoDB with Mongoose
+- JWT authentication
+- Multer for file uploads
+- WhatsApp API integration
+- bcryptjs for password hashing
+
+### Frontend
+
+- Next.js 15 with TypeScript
+- Tailwind CSS for styling
+- React Hook Form for form management
+- React Hot Toast for notifications
+- Axios for API calls
+- Cookie-based authentication
+
+## Setup Instructions
+
+### 1. Prerequisites
+
+- Node.js (v18 or higher)
+- MongoDB (local or cloud instance)
+
+### 2. Environment Setup
+
+Create `.env` file in `backend/` directory:
+
+```
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/offroad-adventure
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+NODE_ENV=development
+ADMIN_EMAIL=admin@offroad.com
+ADMIN_PASSWORD=admin123
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create `.env.local` file in root directory:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Backend Setup
 
-## Learn More
+```bash
+cd backend
+npm install
+mkdir -p uploads/events uploads/gallery
+npm run seed-admin  # Creates admin user
+npm run dev         # Starts on port 5000
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Frontend Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+cd ..
+npm install
+npm run dev         # Starts on port 3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Default Admin Account
 
-## Deploy on Vercel
+- Email: admin@offroad.com
+- Password: admin123
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Endpoints
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Auth:** `/api/auth/login`, `/api/auth/register`
+- **Events:** `/api/events` (GET, POST, PUT, DELETE)
+- **Registrations:** `/api/registrations`
+- **Gallery:** `/api/gallery`
+- **Contact:** `/api/contact`
+
+## Project Structure
+
+```
+off-road/
+├── backend/           # Express.js API
+├── src/              # Next.js frontend
+├── package.json      # Frontend deps
+└── README.md
+```
+
+Visit http://localhost:3000 to see the application!
