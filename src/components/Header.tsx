@@ -2,13 +2,28 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
+  const pathname = usePathname();
+
+  const scrollToSection = (sectionId: string) => {
+    // If we're not on the home page, navigate to home first
+    if (pathname !== "/") {
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
+
+    const element = document.getElementById(sectionId);
+    element?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const isHomePage = pathname === "/";
 
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="bg-white shadow-sm border-b fixed w-full top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -20,24 +35,67 @@ const Header: React.FC = () => {
 
           {/* Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <Link
-              href="/events"
-              className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Events
-            </Link>
-            <Link
-              href="/gallery"
-              className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Gallery
-            </Link>
-            <Link
-              href="/contact"
-              className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Contact
-            </Link>
+            {isHomePage ? (
+              <>
+                <button
+                  onClick={() => scrollToSection("home")}
+                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Home
+                </button>
+                <button
+                  onClick={() => scrollToSection("about")}
+                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  About
+                </button>
+                <button
+                  onClick={() => scrollToSection("events")}
+                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Events
+                </button>
+                <button
+                  onClick={() => scrollToSection("gallery")}
+                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Gallery
+                </button>
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Contact
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/"
+                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Home
+                </Link>
+                <button
+                  onClick={() => scrollToSection("events")}
+                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Events
+                </button>
+                <button
+                  onClick={() => scrollToSection("gallery")}
+                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Gallery
+                </button>
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Contact
+                </button>
+              </>
+            )}
           </nav>
 
           {/* User Menu */}
